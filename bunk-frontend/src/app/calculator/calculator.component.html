@@ -1,0 +1,84 @@
+<div class="calculator-container">
+  <h3>Robert Lee</h3>
+    <h1 class="d-flex justify-content-center mt-5 title">Bunk Calculator</h1>
+    <div class="button-group w-100 d-flex justify-content-center mt-5 mb-3">
+      <button type="button" class="btn btn-primary" (click)="openModal(template)" data-testid="open-modal">Add User</button>
+      <button type="button" class="btn btn-outline-primary" (click)="onSubmit()" data-testid="settle-up">Settle Up</button>
+    </div>
+
+    <div class="data-table-container">
+    <!-- User table data -->
+
+      <div class="table-container">
+      <h2>Users and Expenses</h2>
+        <ngx-datatable class="material container striped" [rows]="rows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto">
+          <ngx-datatable-column name="#" [flexGrow]="0.5">
+              <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  {{(rowIndex + 1)}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Name" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.name | titlecase }}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Expense" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row?.amount}}
+              </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+
+      <!-- result table data -->
+      <div class="result-container">
+      <h2>Result</h2>
+      <div class="total-text-container d-flex">
+        <label>Total Expense : <span>{{total}}</span></label>
+        <label>Average Expense : <span>{{equalShare}}</span></label>
+      </div>
+      <div class="mt-2 w-100">
+        <ngx-datatable class="material container striped" [rows]="resultRows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto">
+          <ngx-datatable-column name="#" [flexGrow]="0.5">
+              <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  {{(rowIndex + 1)}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Owes" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.owes | titlecase }}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Owed" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.owed | titlecase }}
+            </ng-template>
+        </ngx-datatable-column>
+          <ngx-datatable-column name="Amount" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row?.amount}}
+              </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal-container -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add User and Expense</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column align-items-center">
+    <input type="text" placeholder="Name" [(ngModel)]="inputedName" data-testid="user-name" />
+    <input type="number" placeholder="Expense" [(ngModel)]="inputedAmount" data-testid="amount"/>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="insertUser()" data-testid="insert-user">Save</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modalRef?.hide()">Cancel</button>
+  </div>
+</ng-template>

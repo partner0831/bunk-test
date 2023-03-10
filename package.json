@@ -1,0 +1,20 @@
+{
+  "name": "bunk-calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "concurrently \"npm install --prefix ./bunk-frontend\" \"npm install --prefix ./bunk-backend\"",
+    "start": "concurrently \"npm start --prefix ./bunk-frontend\" \"npm run dev --prefix ./bunk-backend\"",
+    "test": "\"npm test --prefix ./bunk-backend\"",
+    "e2e": "\"npm run e2e --prefix ./bunk-frontend\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0"
+  }
+}
